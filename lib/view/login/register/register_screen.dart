@@ -36,6 +36,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var authState = context.watch<AuthViewModel>().authState;
+    if (authState == AuthState.REGISTERED) {
+      Future.microtask(() {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => LoginScreen()));
+      });
+    }
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -83,39 +90,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: MyColors.basicWhite),
                 ),
                 const Expanded(child: SizedBox()),
-                Consumer<AuthViewModel>(
-                  builder: (context, viewModel, child) {
-                    if (viewModel.authState == AuthState.REGISTERED) {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) => LoginScreen()));
-                    }
-                    return MyButton(
-                      onPressed: () {
-                        var name = nameController.text;
-                        var email = emailController.text;
-                        var password = passwordController.text;
-                        var confirm = confirmController.text;
+                MyButton(
+                  onPressed: () {
+                    var name = nameController.text;
+                    var email = emailController.text;
+                    var password = passwordController.text;
+                    var confirm = confirmController.text;
 
-                        if (name.isNotEmpty &&
-                            email.isNotEmpty &&
-                            password.isNotEmpty &&
-                            confirm.isNotEmpty) {
-                          context.read<AuthViewModel>().onRegisterPressed(
-                                registerData: RegisterData(
-                                  firstName: name,
-                                  lastName: name,
-                                  password: password,
-                                  email: email,
-                                ),
-                              );
-                        } else {
-                          UtilityFunctions.getMyToast(message: "Xato");
-                        }
-                      },
-                      buttonText: "Register",
-                    );
+                    if (name.isNotEmpty &&
+                        email.isNotEmpty &&
+                        password.isNotEmpty &&
+                        confirm.isNotEmpty) {
+                      context.read<AuthViewModel>().registerUser(
+                            registerData: RegisterData(
+                              firstName: name,
+                              lastName: name,
+                              password: password,
+                              email: email,
+                            ),
+                          );
+                    } else {
+                      UtilityFunctions.getMyToast(message: "Xato");
+                    }
                   },
-                )
+                  buttonText: "Register",
+                ),
               ],
             ),
           ),

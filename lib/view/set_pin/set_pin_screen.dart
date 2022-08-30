@@ -1,14 +1,13 @@
-import 'package:banking_app/data/local_data/storage.dart';
 import 'package:banking_app/utils/colors.dart';
 import 'package:banking_app/utils/icons.dart';
 import 'package:banking_app/utils/styles.dart';
-import 'package:banking_app/view_model/security_view_model.dart';
+import 'package:banking_app/view_model/pin_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class SecurityScreen extends StatelessWidget {
-  const SecurityScreen({Key? key}) : super(key: key);
+class SetPinScreen extends StatelessWidget {
+  const SetPinScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class SecurityScreen extends StatelessWidget {
                   children: [
                     ...List.generate(
                       context
-                          .watch<SecurityViewModel>()
+                          .watch<PinViewModel>()
                           .greenDotsNumber,
                           (index) =>
                       const CircleAvatar(
@@ -46,7 +45,7 @@ class SecurityScreen extends StatelessWidget {
                     ),
                     ...List.generate(
                       4 - context
-                          .watch<SecurityViewModel>()
+                          .watch<PinViewModel>()
                           .greenDotsNumber,
                           (index) =>
                           CircleAvatar(
@@ -70,7 +69,7 @@ class SecurityScreen extends StatelessWidget {
                         (index) =>
                         GestureDetector(
                           onTap: () {
-                            context.read<SecurityViewModel>().onGestureTap(listLength: 4, index: index, context: context);
+                            context.read<PinViewModel>().onGestureTap(listLength: 4, index: index, context: context);
                           },
                           child: getMyWidget(index: index, context: context),
                         ),
@@ -89,7 +88,7 @@ class SecurityScreen extends StatelessWidget {
       return CircleAvatar(
         backgroundColor: MyColors.basicBlack,
         child: Center(
-            child: !(context.watch<SecurityViewModel>().greenDotsNumber == 4)
+            child: !(context.watch<PinViewModel>().greenDotsNumber == 4)
                 ? SvgPicture.asset(MyIcons.touchId)
                 : Text("OK", style: MyTextStyle.light20.copyWith(color: MyColors.basicWhite)),
         ),

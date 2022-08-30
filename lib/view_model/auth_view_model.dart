@@ -2,14 +2,12 @@ import 'package:banking_app/data/local_data/storage.dart';
 import 'package:banking_app/data/models/auth_state.dart';
 import 'package:banking_app/data/models/register_data.dart';
 import 'package:banking_app/data/repositories/auth_repository.dart';
-import 'package:banking_app/data/services/open_api_service.dart';
-import 'package:banking_app/utils/utility_functions.dart';
-import 'package:banking_app/view/security/security_screen.dart';
-import 'package:banking_app/view/tabs/tab_box.dart';
 import 'package:flutter/material.dart';
 
 class AuthViewModel extends ChangeNotifier {
-  AuthViewModel({required this.authRepository});
+  AuthViewModel({required this.authRepository}) {
+    _init();
+  }
 
   final AuthRepository authRepository;
 
@@ -18,27 +16,29 @@ class AuthViewModel extends ChangeNotifier {
 
   AuthState authState = AuthState.PURE;
 
-  void onSwitchPressed() {
-    switched = !switched;
-    notifyListeners();
+  Future<void> _init() async {
+    notify(true);
+    await StorageRepository.getInstance();
+    await Future.delayed(const Duration(seconds: 2), () {
+      checkAuhState();
+    });
+    notify(false);
   }
 
-  void checkLoggedIn() {
-    if (StorageRepository.getString("access_token").isNotEmpty) {
-      authState = AuthState.LOGGED;
-      notifyListeners();
+  void checkAuhState() {
+    if (StorageRepository.getString("first_name").isNotEmpty) {
+      if (StorageRepository.getString("access_token").isNotEmpty) {
+        authState = AuthState.LOGGED;
+      } else {
+        authState = AuthState.REGISTERED;
+      }
+    } else {
+      authState = AuthState.NOT_REGISTERED;
     }
+    print("AUTH STATE UPDATED");
   }
 
-  void checkRegistered() {
-    String savedFirstName = StorageRepository.getString("first_name");
-    String savedLastName = StorageRepository.getString("last_name");
-    if (savedFirstName.isNotEmpty && savedLastName.isNotEmpty) {
-      authState = AuthState.REGISTERED;
-    }
-  }
-
-  void onLoginPressed({
+  void loginUser({
     required String email,
     required String password,
   }) async {
@@ -46,10 +46,11 @@ class AuthViewModel extends ChangeNotifier {
     String token = await authRepository.loginUser(email, password);
     await authRepository.saveToken(token);
     authState = AuthState.LOGGED;
+    print("USER LOGGED");
     notify(false);
   }
 
-  void onRegisterPressed({
+  void registerUser({
     required RegisterData registerData,
   }) async {
     notify(true);
@@ -60,6 +61,11 @@ class AuthViewModel extends ChangeNotifier {
       print("USER REGISTERED");
     }
     notify(false);
+  }
+
+  void onSwitchPressed() {
+    switched = !switched;
+    notifyListeners();
   }
 
   void notify(bool value) {

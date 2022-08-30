@@ -4,7 +4,7 @@ import 'package:banking_app/utils/icons.dart';
 import 'package:banking_app/utils/styles.dart';
 import 'package:banking_app/utils/utility_functions.dart';
 import 'package:banking_app/view/login/register/register_screen.dart';
-import 'package:banking_app/view/security/security_screen.dart';
+import 'package:banking_app/view/set_pin/set_pin_screen.dart';
 import 'package:banking_app/view_model/auth_view_model.dart';
 import 'package:banking_app/widgets/button.dart';
 import 'package:banking_app/widgets/my_text_field.dart';
@@ -21,23 +21,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  @override
-  void initState() {
-    _init();
-    super.initState();
-  }
-
-  _init() async {
-    Future.microtask(() =>
-        Provider.of<AuthViewModel>(context, listen: false).checkRegistered());
-  }
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     bool switched = context.watch<AuthViewModel>().switched;
+    var authState = context.watch<AuthViewModel>().authState;
+    if (authState == AuthState.LOGGED) {
+      Future.microtask(() {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => SetPinScreen()));
+      });
+    }
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -106,33 +102,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 const Expanded(child: SizedBox()),
-                Consumer<AuthViewModel>(builder: (context, instance, child) {
-                  if (instance.authState == AuthState.LOGGED) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SecurityScreen()));
-                  }
-                  return MyButton(
-                      onPressed: () {
-                        if (instance.authState == AuthState.REGISTERED) {
-                          if (emailController.text.length > 10 &&
-                              passwordController.text.length > 4) {
-                            instance.onLoginPressed(
-                              email: emailController.text,
-                              password: passwordController.text,
+                MyButton(
+                    onPressed: () {
+                      String email = emailController.text;
+                      String password = passwordController.text;
+                      if (email.length > 10 && password.length > 4) {
+                        context.read<AuthViewModel>().loginUser(
+                              email: email,
+                              password: password,
                             );
-                          } else {
-                            UtilityFunctions.getMyToast(
-                                message: "Email yoki password xato!");
-                          }
-                        } else {
-                          UtilityFunctions.getMyToast(
-                              message: "Avval Register qiling!");
-                        }
-                      },
-                      buttonText: "Login");
-                }),
+                      } else {
+                        UtilityFunctions.getMyToast(
+                            message: "Email yoki password xato!");
+                      }
+                    },
+                    buttonText: "Login"),
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(

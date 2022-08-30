@@ -2,22 +2,20 @@ import 'package:banking_app/data/repositories/auth_repository.dart';
 import 'package:banking_app/data/services/open_api_service.dart';
 import 'package:banking_app/utils/theme.dart';
 import 'package:banking_app/view/splash/splash_screen.dart';
-import 'package:banking_app/view/tabs/tab_box.dart';
 import 'package:banking_app/view_model/auth_view_model.dart';
-import 'package:banking_app/view_model/security_view_model.dart';
+import 'package:banking_app/view_model/pin_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
   OpenApiService openApiService = OpenApiService();
 
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   runApp(
     MultiProvider(
@@ -26,7 +24,7 @@ void main() async {
             create: (_) => AuthViewModel(
                 authRepository:
                     AuthRepository(openApiService: openApiService))),
-        ChangeNotifierProvider(create: (_) => SecurityViewModel()),
+        ChangeNotifierProvider(create: (_) => PinViewModel()),
       ],
       child: EasyLocalization(
         path: 'assets/translations',
@@ -50,7 +48,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TabBox(),
+      home: SplashScreen(),
       themeMode: ThemeMode.system,
       darkTheme: AppTheme.darkTheme,
       theme: AppTheme.lightTheme,

@@ -4,7 +4,7 @@ import 'package:banking_app/view/tabs/tab_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SecurityViewModel extends ChangeNotifier {
+class PinViewModel extends ChangeNotifier {
   int greenDotsNumber = 0;
   String password = "";
   bool setPinCode = false;
@@ -31,7 +31,6 @@ class SecurityViewModel extends ChangeNotifier {
       }
       notifyListeners();
     }
-
 
     if (greenDotsNumber == 4 && index == 9){
 
