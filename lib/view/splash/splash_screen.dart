@@ -1,7 +1,7 @@
 import 'package:banking_app/data/models/auth_state.dart';
 import 'package:banking_app/utils/constants.dart';
 import 'package:banking_app/utils/icons.dart';
-import 'package:banking_app/view_model/auth_view_model.dart';
+import 'package:banking_app/view_models/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     var authState = context.watch<AuthViewModel>().authState;
-    print("created");
+    print("SPLASH BUILD CALLED");
     print(authState);
     navigateToScreen(authState);
 
@@ -43,7 +43,8 @@ class _SplashScreenState extends State<SplashScreen> {
       case AuthState.NOT_REGISTERED:
         Future.microtask(() => Navigator.pushReplacementNamed(context, registerRoute));
         break;
-      case AuthState.PURE:
+
+      case AuthState.DEFAULT:
         break;
     }
   }

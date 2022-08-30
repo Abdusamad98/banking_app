@@ -1,7 +1,7 @@
 import 'package:banking_app/utils/colors.dart';
 import 'package:banking_app/utils/icons.dart';
 import 'package:banking_app/utils/styles.dart';
-import 'package:banking_app/view_model/pin_view_model.dart';
+import 'package:banking_app/view_models/pin_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';

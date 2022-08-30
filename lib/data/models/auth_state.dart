@@ -1,5 +1,5 @@
 enum AuthState {
-  PURE,
+  DEFAULT,
   LOGGED,
   REGISTERED,
   NOT_REGISTERED

@@ -5,7 +5,7 @@ import 'package:banking_app/utils/constants.dart';
 import 'package:banking_app/utils/icons.dart';
 import 'package:banking_app/utils/styles.dart';
 import 'package:banking_app/utils/utility_functions.dart';
-import 'package:banking_app/view_model/auth_view_model.dart';
+import 'package:banking_app/view_models/auth_view_model.dart';
 import 'package:banking_app/widgets/button.dart';
 import 'package:banking_app/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     var authState = context.watch<AuthViewModel>().authState;
     if (authState == AuthState.REGISTERED) {
       Future.microtask(() {

@@ -14,7 +14,7 @@ class AuthViewModel extends ChangeNotifier {
   bool switched = false;
   bool isLoading = false;
 
-  AuthState authState = AuthState.PURE;
+  AuthState authState = AuthState.DEFAULT;
 
   Future<void> _init() async {
     notify(true);

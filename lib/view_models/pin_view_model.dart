@@ -9,8 +9,10 @@ class PinViewModel extends ChangeNotifier {
   String password = "";
   bool setPinCode = false;
 
-
-  void onGestureTap({required int listLength, required int index, required BuildContext context}) async{
+  void onGestureTap(
+      {required int listLength,
+      required int index,
+      required BuildContext context}) async {
     if (index != 11) {
       if (greenDotsNumber < listLength) {
         greenDotsNumber++;
@@ -21,8 +23,7 @@ class PinViewModel extends ChangeNotifier {
         }
         notifyListeners();
       }
-    }
-    else {
+    } else {
       if (greenDotsNumber > 0) {
         greenDotsNumber--;
         if (password.isNotEmpty) {
@@ -32,10 +33,10 @@ class PinViewModel extends ChangeNotifier {
       notifyListeners();
     }
 
-    if (greenDotsNumber == 4 && index == 9){
-
-     Navigator.pushReplacementNamed(context, tabRoute);
-      UtilityFunctions.getMyToast(message: "Your passcode: ${StorageRepository.getString("passcode")}");
+    if (greenDotsNumber == 4 && index == 9) {
+      Navigator.pushReplacementNamed(context, tabRoute);
+      UtilityFunctions.getMyToast(
+          message: "Your passcode: ${StorageRepository.getString("passcode")}");
       await StorageRepository.putString(key: "passcode", value: password);
     }
   }

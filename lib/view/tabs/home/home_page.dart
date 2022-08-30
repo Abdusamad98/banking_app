@@ -1,12 +1,14 @@
+import 'package:banking_app/data/models/user_card.dart';
 import 'package:banking_app/utils/colors.dart';
 import 'package:banking_app/utils/icons.dart';
 import 'package:banking_app/utils/styles.dart';
+import 'package:banking_app/view_models/cards_view_model.dart';
 import 'package:banking_app/widgets/card_text.dart';
-import 'package:banking_app/widgets/rectangle.dart';
 import 'package:banking_app/widgets/rectangle_row.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -18,6 +20,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    List<UserCard> userCards = context.watch<CardsViewModel>().getUserCards;
+    print("USER CARDS LENGTH:${userCards.length}");
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -36,8 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(12),
                         color: Theme.of(context).cardColor,
                       ),
-                      child:
-                          Center(child: SvgPicture.asset(MyIcons.settings)),
+                      child: Center(child: SvgPicture.asset(MyIcons.settings)),
                     ),
                     SizedBox(
                         width: 48,
@@ -65,7 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           Text(
                             "Total balance",
-                            style: MyTextStyle.regular16.copyWith(color: MyColors.gray1),
+                            style: MyTextStyle.regular16
+                                .copyWith(color: MyColors.gray1),
                           ),
                           const SizedBox(height: 8),
                           const CardText(
@@ -163,11 +167,29 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 33),
-                const RectangleRow(t1: "Transfer", t2: "Exchange", t3: "Payments", ch1: MyIcons.arrows, ch2: MyIcons.currency, ch3: MyIcons.wallet),
+                const RectangleRow(
+                    t1: "Transfer",
+                    t2: "Exchange",
+                    t3: "Payments",
+                    ch1: MyIcons.arrows,
+                    ch2: MyIcons.currency,
+                    ch3: MyIcons.wallet),
                 const SizedBox(height: 24),
-                const RectangleRow(t1: "Credits", t2: "Deposits", t3: "Cashback", ch1: MyIcons.purchase, ch2: MyIcons.percent, ch3: MyIcons.gift),
+                const RectangleRow(
+                    t1: "Credits",
+                    t2: "Deposits",
+                    t3: "Cashback",
+                    ch1: MyIcons.purchase,
+                    ch2: MyIcons.percent,
+                    ch3: MyIcons.gift),
                 const SizedBox(height: 24),
-                const RectangleRow(t1: "ATM", t2: "Security", t3: "More", ch1: MyIcons.money, ch2: MyIcons.security, ch3: MyIcons.grid),
+                const RectangleRow(
+                    t1: "ATM",
+                    t2: "Security",
+                    t3: "More",
+                    ch1: MyIcons.money,
+                    ch2: MyIcons.security,
+                    ch3: MyIcons.grid),
               ],
             ),
           ),
