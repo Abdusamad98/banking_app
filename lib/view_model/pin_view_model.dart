@@ -1,6 +1,6 @@
 import 'package:banking_app/data/local_data/storage.dart';
+import 'package:banking_app/utils/constants.dart';
 import 'package:banking_app/utils/utility_functions.dart';
-import 'package:banking_app/view/tabs/tab_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -34,9 +34,8 @@ class PinViewModel extends ChangeNotifier {
 
     if (greenDotsNumber == 4 && index == 9){
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const TabBox()));
+     Navigator.pushReplacementNamed(context, tabRoute);
       UtilityFunctions.getMyToast(message: "Your passcode: ${StorageRepository.getString("passcode")}");
-
       await StorageRepository.putString(key: "passcode", value: password);
     }
   }

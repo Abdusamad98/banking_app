@@ -1,8 +1,6 @@
 import 'package:banking_app/data/models/auth_state.dart';
+import 'package:banking_app/utils/constants.dart';
 import 'package:banking_app/utils/icons.dart';
-import 'package:banking_app/view/login/login/login_screen.dart';
-import 'package:banking_app/view/login/register/register_screen.dart';
-import 'package:banking_app/view/set_pin/set_pin_screen.dart';
 import 'package:banking_app/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -33,28 +31,17 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> navigateToScreen(AuthState authState) async {
-   await Future.delayed(Duration.zero);
     switch (authState) {
       case AuthState.REGISTERED:
-        {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-            return LoginScreen();
-          }));
-        }
+        Future.microtask(() => Navigator.pushReplacementNamed(context, loginRoute));
+
         break;
       case AuthState.LOGGED:
-        {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-            return SetPinScreen();
-          }));
-        }
+        Future.microtask(() => Navigator.pushReplacementNamed(context, setPinRoute));
+
         break;
       case AuthState.NOT_REGISTERED:
-        {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-            return RegisterScreen();
-          }));
-        }
+        Future.microtask(() => Navigator.pushReplacementNamed(context, registerRoute));
         break;
       case AuthState.PURE:
         break;

@@ -1,10 +1,10 @@
 import 'package:banking_app/data/models/auth_state.dart';
 import 'package:banking_app/data/models/register_data.dart';
 import 'package:banking_app/utils/colors.dart';
+import 'package:banking_app/utils/constants.dart';
 import 'package:banking_app/utils/icons.dart';
 import 'package:banking_app/utils/styles.dart';
 import 'package:banking_app/utils/utility_functions.dart';
-import 'package:banking_app/view/login/login/login_screen.dart';
 import 'package:banking_app/view_model/auth_view_model.dart';
 import 'package:banking_app/widgets/button.dart';
 import 'package:banking_app/widgets/my_text_field.dart';
@@ -39,8 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     var authState = context.watch<AuthViewModel>().authState;
     if (authState == AuthState.REGISTERED) {
       Future.microtask(() {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => LoginScreen()));
+        Navigator.pushReplacementNamed(context, loginRoute);
       });
     }
     return Scaffold(

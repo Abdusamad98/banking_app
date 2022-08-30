@@ -1,10 +1,10 @@
 import 'package:banking_app/data/models/auth_state.dart';
 import 'package:banking_app/utils/colors.dart';
+import 'package:banking_app/utils/constants.dart';
 import 'package:banking_app/utils/icons.dart';
 import 'package:banking_app/utils/styles.dart';
 import 'package:banking_app/utils/utility_functions.dart';
 import 'package:banking_app/view/login/register/register_screen.dart';
-import 'package:banking_app/view/set_pin/set_pin_screen.dart';
 import 'package:banking_app/view_model/auth_view_model.dart';
 import 'package:banking_app/widgets/button.dart';
 import 'package:banking_app/widgets/my_text_field.dart';
@@ -30,8 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var authState = context.watch<AuthViewModel>().authState;
     if (authState == AuthState.LOGGED) {
       Future.microtask(() {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => SetPinScreen()));
+        Navigator.pushReplacementNamed(context, setPinRoute);
       });
     }
     return Scaffold(
