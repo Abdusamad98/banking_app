@@ -1,5 +1,6 @@
 import 'package:banking_app/data/models/user_card.dart';
 import 'package:banking_app/utils/colors.dart';
+import 'package:banking_app/utils/constants.dart';
 import 'package:banking_app/utils/icons.dart';
 import 'package:banking_app/utils/styles.dart';
 import 'package:banking_app/view_models/cards_view_model.dart';
@@ -108,58 +109,63 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ],
                       ),
-                      Container(
-                        color: Colors.green,
-                        width: 300,
-                        height: 200,
-                        child: Stack(
-                          children: [
-                            // Positioned(
-                            //   right: -170,
-                            //   top: 90,
-                            //   child: Stack(
-                            //     clipBehavior: Clip.none,
-                            //     children: [
-                            //       Positioned(
-                            //         top: 20,
-                            //         left: 30,
-                            //         child: Container(
-                            //           width: 311,
-                            //           height: 214,
-                            //           decoration: BoxDecoration(
-                            //             color: MyColors.indigo,
-                            //             borderRadius: BorderRadius.circular(16),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //       Positioned(
-                            //         top: 10,
-                            //         left: 15,
-                            //         child: Container(
-                            //           width: 311,
-                            //           height: 214,
-                            //           decoration: BoxDecoration(
-                            //             color: MyColors.orange,
-                            //             borderRadius: BorderRadius.circular(16),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //       Container(
-                            //         width: 311,
-                            //         height: 214,
-                            //         decoration: BoxDecoration(
-                            //           gradient: const RadialGradient(
-                            //             colors: MyColors.yellowGreen,
-                            //             center: Alignment.topLeft,
-                            //             tileMode: TileMode.mirror,
-                            //           ),
-                            //           borderRadius: BorderRadius.circular(16),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // )
-                          ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, transactionsRoute);
+                        },
+                        child: Container(
+                          color: Colors.green,
+                          width: 300,
+                          height: 200,
+                          child: Stack(
+                            children: [
+                              // Positioned(
+                              //   right: -170,
+                              //   top: 90,
+                              //   child: Stack(
+                              //     clipBehavior: Clip.none,
+                              //     children: [
+                              //       Positioned(
+                              //         top: 20,
+                              //         left: 30,
+                              //         child: Container(
+                              //           width: 311,
+                              //           height: 214,
+                              //           decoration: BoxDecoration(
+                              //             color: MyColors.indigo,
+                              //             borderRadius: BorderRadius.circular(16),
+                              //           ),
+                              //         ),
+                              //       ),
+                              //       Positioned(
+                              //         top: 10,
+                              //         left: 15,
+                              //         child: Container(
+                              //           width: 311,
+                              //           height: 214,
+                              //           decoration: BoxDecoration(
+                              //             color: MyColors.orange,
+                              //             borderRadius: BorderRadius.circular(16),
+                              //           ),
+                              //         ),
+                              //       ),
+                              //       Container(
+                              //         width: 311,
+                              //         height: 214,
+                              //         decoration: BoxDecoration(
+                              //           gradient: const RadialGradient(
+                              //             colors: MyColors.yellowGreen,
+                              //             center: Alignment.topLeft,
+                              //             tileMode: TileMode.mirror,
+                              //           ),
+                              //           borderRadius: BorderRadius.circular(16),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // )
+                            ],
+                          ),
                         ),
                       )
                     ],

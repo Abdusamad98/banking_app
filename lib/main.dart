@@ -1,5 +1,6 @@
 import 'package:banking_app/data/repositories/auth_repository.dart';
 import 'package:banking_app/data/repositories/cards_repository.dart';
+import 'package:banking_app/data/repositories/transactions_repository.dart';
 import 'package:banking_app/data/services/open_api_service.dart';
 import 'package:banking_app/data/services/secure_api_service.dart';
 import 'package:banking_app/utils/constants.dart';
@@ -8,6 +9,7 @@ import 'package:banking_app/view/router.dart';
 import 'package:banking_app/view_models/auth_view_model.dart';
 import 'package:banking_app/view_models/cards_view_model.dart';
 import 'package:banking_app/view_models/pin_view_model.dart';
+import 'package:banking_app/view_models/transctions_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +29,14 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (_) => TransactionViewModel(
+            transactionsRepo: TransactionsRepo(
+              openApiService: openApiService,
+              secureApiService: secureApiService,
+            ),
+          )
+        ),
+        ChangeNotifierProvider(
           create: (_) => AuthViewModel(
             authRepository: AuthRepository(openApiService: openApiService),
           ),
@@ -37,7 +47,9 @@ void main() async {
                 CardsRepository(secureApiService: secureApiService),
           ),
         ),
-        ChangeNotifierProvider(create: (_) => PinViewModel()),
+        ChangeNotifierProvider(
+          create: (_) => PinViewModel(),
+        ),
       ],
       child: EasyLocalization(
         path: 'assets/translations',

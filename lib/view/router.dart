@@ -4,6 +4,7 @@ import 'package:banking_app/view/login/register/register_screen.dart';
 import 'package:banking_app/view/set_pin/set_pin_screen.dart';
 import 'package:banking_app/view/splash/splash_screen.dart';
 import 'package:banking_app/view/tabs/tab_box.dart';
+import 'package:banking_app/view/transactions/transactions_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyRouter {
@@ -19,6 +20,9 @@ class MyRouter {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case setPinRoute:
         return MaterialPageRoute(builder: (_) => SetPinScreen());
+      case transactionsRoute:
+        return MaterialPageRoute(builder: (_) => TransactionsScreen());
+
 
       default:
         return MaterialPageRoute(

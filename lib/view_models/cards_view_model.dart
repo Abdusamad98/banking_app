@@ -1,6 +1,7 @@
 import 'package:banking_app/data/models/user_card.dart';
 import 'package:banking_app/data/repositories/cards_repository.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CardsViewModel extends ChangeNotifier {
   CardsViewModel({required this.cardsRepository}){
@@ -26,3 +27,5 @@ class CardsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+
